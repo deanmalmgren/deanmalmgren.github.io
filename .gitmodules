@@ -1,0 +1,3 @@
+[submodule "open-data-landscape"]
+	path = open-data-landscape
+	url = git@github.com:deanmalmgren/open-data-landscape.git
