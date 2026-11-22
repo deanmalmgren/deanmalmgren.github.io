@@ -1,0 +1,66 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+import ContactForm from '../components/ContactForm.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description = site.description } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.title;
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/work/', label: 'Work' },
+  { href: '/writing/', label: 'Writing' },
+  { href: '/about/', label: 'About' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(path, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="/">{site.name}</a>
+        <nav aria-label="Main">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+          ))}
+          <a class="nav-cta" href="#contact">Get in touch</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer" id="contact">
+      <div class="wrap">
+        <h2>Let’s talk</h2>
+        <p class="lede">
+          If you’re figuring out what to build next, or need someone to lead product and engineering while you do, I’d like to hear about it.
+        </p>
+        {site.formEndpoint ? <ContactForm endpoint={site.formEndpoint} /> : (
+          <p class="cta-row"><a class="button" href={site.linkedin}>Message me on LinkedIn</a></p>
+        )}
+        <p class="fineprint">
+          <a href={site.linkedin}>LinkedIn</a> · <a href={site.github}>GitHub</a> · <a href={site.scholar}>Google Scholar</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

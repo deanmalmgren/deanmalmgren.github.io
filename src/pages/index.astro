@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import Outcomes from '../components/Outcomes.astro';
+import WorkCard from '../components/WorkCard.astro';
+import { hero, proof, capabilities, phases, engagements, clients, featuredIn } from '../data/site';
+import { getWork } from '../lib/work';
+
+const featured = (await getWork()).filter((w) => w.data.featured);
+// On the home page each case study appears once, under its first phase.
+const byPhase = (phase: keyof typeof phases) => featured.filter((w) => w.data.phase[0] === phase);
+---
+<Base>
+  <section class="hero wrap">
+    <h1>{hero.headline}</h1>
+    <p class="lede">{hero.lede}</p>
+    <p class="cta-row">
+      <a class="button" href="#contact">Work with me</a>
+      <a class="button secondary" href="/work/">See the work</a>
+    </p>
+  </section>
+
+  <section class="wrap">
+    <Outcomes items={proof} />
+  </section>
+
+  <section class="wrap section">
+    <h2>One person, both sides of the table</h2>
+    <p class="lede">
+      Most companies hire product and technology leadership separately and hope the two get along. I’ve done both jobs, usually at the same time, with a data scientist’s habit of checking the numbers.
+    </p>
+    <div class="grid four">
+      {Object.values(capabilities).map((c) => (
+        <div class="pillar">
+          <h3>{c.label}</h3>
+          <p>{c.blurb}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {(Object.keys(phases) as (keyof typeof phases)[]).map((key) => (
+    <section class="wrap section">
+      <h2>{phases[key].label}</h2>
+      <p class="lede">{phases[key].blurb}</p>
+      <div class="grid two">
+        {byPhase(key).map((w) => <WorkCard work={w} />)}
+      </div>
+      <p><a href={`/work/#${key}`}>All {phases[key].label.toLowerCase()} work →</a></p>
+    </section>
+  ))}
+
+  <section class="wrap section">
+    <h2>Ways to work together</h2>
+    <div class="grid two">
+      {engagements.map((e) => (
+        <div class="pillar">
+          <h3>{e.title}</h3>
+          <p>{e.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section credits">
+    <div>
+      <h2 class="small">Clients and customers include</h2>
+      <p>{clients.join(' · ')}</p>
+    </div>
+    <div>
+      <h2 class="small">Written for or featured in</h2>
+      <p>{featuredIn.join(' · ')}</p>
+    </div>
+  </section>
+</Base>

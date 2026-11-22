@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const links = await getCollection('links');
+const groups = [
+  { kind: 'writing', label: 'Writing' },
+  { kind: 'talk', label: 'Talks and interviews' },
+  { kind: 'press', label: 'Press' },
+  { kind: 'open-source', label: 'Open source' },
+  { kind: 'research', label: 'Research' },
+] as const;
+---
+<Base title="Writing" description="Writing, talks, press, and open source by Dean Malmgren.">
+  <section class="wrap hero compact">
+    <h1>Writing, talks, and code</h1>
+    <p class="lede">I’ve written and spoken about human-centered AI, data science and design, and climate for over a decade.</p>
+  </section>
+  {groups.map(({ kind, label }) => {
+    const items = links.filter((l) => l.data.kind === kind).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+    return items.length > 0 && (
+      <section class="wrap section">
+        <h2>{label}</h2>
+        <ul class="link-list">
+          {items.map(({ data }) => (
+            <li>
+              <a href={data.url}>{data.title}</a>
+              <span class="muted"> · {data.venue}{data.year && `, ${data.year}`}</span>
+              {data.note && <p>{data.note}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  })}
+</Base>

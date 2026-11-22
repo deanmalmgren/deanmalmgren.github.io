@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { phases } from '../../data/site';
+import { getWork } from '../../lib/work';
+
+const work = await getWork();
+---
+<Base title="Work" description="Case studies from Datascope, IDEO, Elemetric, and Planet FWD.">
+  <section class="wrap hero compact">
+    <h1>Work</h1>
+    <p class="lede">
+      What I did, what happened, and what I’d tell you if you were about to do the same thing. Grouped by whether the job was finding something worth building or scaling something that worked.
+    </p>
+  </section>
+  {(Object.keys(phases) as (keyof typeof phases)[]).map((key) => (
+    <section class="wrap section" id={key}>
+      <h2>{phases[key].label}</h2>
+      <p class="lede">{phases[key].blurb}</p>
+      <div class="grid two">
+        {work.filter((w) => w.data.phase.includes(key)).map((w) => <WorkCard work={w} />)}
+      </div>
+    </section>
+  ))}
+</Base>

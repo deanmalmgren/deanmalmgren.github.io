@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+// Keep this in sync with the resume. Newest first.
+const roles = [
+  { years: '2023–present', org: 'Planet FWD', role: 'CTO', note: 'Rebuilt the product and team behind an AI-first LCA and carbon accounting platform for consumer goods.' },
+  { years: '2017–2022', org: 'IDEO', role: 'Executive Director, then Partner', note: 'Led the global AI × Design practice. Also led IDEO’s Net Zero plan and started its market intelligence capability.' },
+  { years: '2016–2017', org: 'Elemetric', role: 'Technical co-founder', note: 'Survey analysis start-up spun out of Datascope. Techstars S17.' },
+  { years: '2009–2017', org: 'Datascope', role: 'Co-founder and Partner', note: 'Human-centered data science consultancy. Bootstrapped to 15 people; acquired by IDEO.' },
+  { years: '2013–present', org: 'Advisor', role: 'Formal and informal', note: 'Metis (data science curriculum), Northwestern NUvention Analytics (chaired the advisory board), University of Michigan School of Information, and dozens of data and climate start-ups.' },
+];
+---
+<Base title="About" description="Dean Malmgren: founder, CTO, and data scientist.">
+  <section class="wrap hero compact">
+    <h1>About</h1>
+  </section>
+  <section class="wrap section prose">
+    <p>
+      I started as a scientist: a PhD at Northwestern and publications in Nature, Science, and PNAS, including research on how people communicate. I liked the math, but I liked it more when it was useful to someone. So in 2009 I co-founded Datascope to design algorithms that are valuable for businesses and useful for people.
+    </p>
+    <p>
+      Since then I’ve been on both sides of the product and technology line. I founded and sold a company. I led IDEO’s AI × Design practice across a global firm. And as CTO at Planet FWD, I rebuilt the product, the platform, and the team, while still writing a lot of the code myself.
+    </p>
+    <p>
+      I don’t claim a single domain. My work has taken me into food and beverage, consumer goods, banking and finance, agriculture, pharmaceuticals, and healthcare. What I bring is the ability to learn a domain quickly (I learned life cycle assessment in under 90 days) and build useful things with that knowledge right away.
+    </p>
+    <p>
+      Outside of work I’m a US Swimming official and assistant coach for our local swim team. I live in the Chicago area with my wife and our two kids.
+    </p>
+  </section>
+  <section class="wrap section">
+    <h2>Experience</h2>
+    <ol class="timeline">
+      {roles.map((r) => (
+        <li>
+          <span class="muted">{r.years}</span>
+          <h3>{r.org} <span class="muted">· {r.role}</span></h3>
+          <p>{r.note}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+  <section class="wrap section">
+    <h2>Education</h2>
+    <ul class="link-list">
+      <li><strong>PhD, Chemical and Biological Engineering</strong> <span class="muted">· Northwestern University, 2009</span></li>
+      <li><strong>BSE Chemical Engineering, BS Honors Mathematics</strong> <span class="muted">· University of Michigan, 2003</span></li>
+    </ul>
+    <p class="muted">For a resume, <a href="#contact">get in touch</a> or see <a href={site.linkedin}>LinkedIn</a>.</p>
+  </section>
+</Base>

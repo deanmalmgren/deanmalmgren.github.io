@@ -1,0 +1,20 @@
+---
+import type { Work } from '../lib/work';
+import { capabilities } from '../data/site';
+
+interface Props {
+  work: Work;
+}
+const { work } = Astro.props;
+const { title, summary, org, years, outcomes } = work.data;
+const lead = outcomes[0];
+---
+<article class="card">
+  <p class="eyebrow">{org} · {years}</p>
+  <h3><a href={`/work/${work.id}/`}>{title}</a></h3>
+  <p>{summary}</p>
+  {lead && <p class="card-stat"><strong>{lead.value}</strong> {lead.label}</p>}
+  <ul class="tags">
+    {work.data.capabilities.map((c) => <li>{capabilities[c].label}</li>)}
+  </ul>
+</article>
