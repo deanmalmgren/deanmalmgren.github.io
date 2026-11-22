@@ -1,0 +1,87 @@
+# Writing, talks, press, open source, research. Each entry needs a unique id.
+# kind: writing | talk | press | open-source | research
+
+- id: hbr-data-scientists-designers
+  title: What Happens When Data Scientists and Designers Work Together
+  url: https://hbr.org/2018/03/what-happens-when-data-scientists-and-designers-work-together
+  kind: writing
+  venue: Harvard Business Review
+  year: 2018
+  note: With Jon Wettersten.
+
+- id: ideo-ai-products-of-tomorrow
+  title: What the AI products of tomorrow might look like
+  url: https://www.ideo.com/journal/what-the-ai-products-of-tomorrow-might-look-like
+  kind: writing
+  venue: IDEO Journal
+
+- id: ideo-estimating-carbon-footprint
+  title: Estimating IDEO’s carbon footprint
+  url: https://www.ideo.com/journal/estimating-ideos-carbon-footprint
+  kind: writing
+  venue: IDEO Journal
+  note: Part of the Net Zero series.
+
+- id: ideo-three-key-interventions
+  title: Three key interventions to reduce IDEO’s greenhouse gas emissions
+  url: https://www.ideo.com/journal/three-key-interventions-to-reduce-ideos-greenhouse-gas-emissions
+  kind: writing
+  venue: IDEO Journal
+  note: Part of the Net Zero series.
+
+- id: ideo-voluntary-carbon-offsets
+  title: Removing IDEO’s emissions with voluntary carbon offsets
+  url: https://www.ideo.com/journal/removing-ideos-emissions-with-voluntary-carbon-offsets
+  kind: writing
+  venue: IDEO Journal
+  note: Part of the Net Zero series.
+
+- id: core77-interview
+  title: Dean Malmgren on how he sees data as a rich design medium
+  url: https://www.core77.com/posts/90078/Dean-Malmgren-on-How-He-Sees-Data-as-a-Rich-Design-Medium
+  kind: talk
+  venue: Core77
+  year: 2019
+
+- id: fastco-ideo-ai-revolution
+  title: IDEO’s plan to stage an AI revolution
+  url: https://www.fastcompany.com/90147010/exclusive-ideos-plan-to-stage-an-ai-revolution
+  kind: press
+  venue: Fast Company
+  year: 2017
+  note: On IDEO’s acquisition of Datascope.
+
+- id: forbes-planet-fwd
+  title: How Planet FWD is revolutionizing the food industry with an AI-powered decarbonization platform
+  url: https://www.forbes.com/sites/afdhelaziz/2023/10/05/how-planet-fwd-is-revolutionizing-the-food-industry-with-an-ai-powered-decarbonization-platform/
+  kind: press
+  venue: Forbes
+  year: 2023
+
+- id: textract
+  title: textract
+  url: https://github.com/deanmalmgren/textract
+  kind: open-source
+  venue: GitHub
+  note: Extract text from any document. ~4.7k stars.
+
+- id: scrubadub
+  title: scrubadub
+  url: https://github.com/LeapBeyond/scrubadub
+  kind: open-source
+  venue: GitHub
+  note: Remove personally identifiable information from free text. Started at Datascope.
+
+- id: catcorrjs
+  title: catcorr.js
+  url: https://ideo.github.io/catcorrjs/
+  kind: open-source
+  venue: IDEO
+  note: Interactive survey analysis; the seed of Elemetric.
+
+- id: google-scholar
+  title: Publications in Nature, Science, and PNAS
+  url: https://scholar.google.com/citations?user=phmI3LIAAAAJ&hl=en&oi=ao
+  kind: research
+  venue: Google Scholar
+  note: Includes research on patterns in human communication, from my PhD at Northwestern.

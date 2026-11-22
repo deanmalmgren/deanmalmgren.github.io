@@ -1,0 +1,43 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Outcomes from '../../components/Outcomes.astro';
+import { capabilities, phases } from '../../data/site';
+import { getWork, type Work } from '../../lib/work';
+
+export async function getStaticPaths() {
+  const work = await getWork();
+  return work.map((entry, i) => ({
+    params: { id: entry.id },
+    props: { entry, next: work[(i + 1) % work.length] },
+  }));
+}
+
+const { entry, next } = Astro.props as { entry: Work; next: Work };
+const { Content } = await render(entry);
+const d = entry.data;
+---
+<Base title={d.title} description={d.summary}>
+  <article class="wrap case">
+    <p class="eyebrow">
+      {d.phase.map((p) => phases[p].label).join(' · ')}
+      {d.draft && <span class="draft">Draft</span>}
+    </p>
+    <h1>{d.title}</h1>
+    <p class="lede">{d.summary}</p>
+    <dl class="meta">
+      <div><dt>Where</dt><dd>{d.org}</dd></div>
+      <div><dt>Role</dt><dd>{d.role}</dd></div>
+      <div><dt>When</dt><dd>{d.years}</dd></div>
+      <div><dt>Muscles</dt><dd>{d.capabilities.map((c) => capabilities[c].label).join(', ')}</dd></div>
+    </dl>
+    <Outcomes items={d.outcomes} />
+    <div class="prose">
+      <Content />
+    </div>
+    <nav class="next">
+      <a href="/work/">← All work</a>
+      <a href={`/work/${next.id}/`}>Next: {next.data.title} →</a>
+    </nav>
+  </article>
+</Base>

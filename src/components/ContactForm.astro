@@ -1,0 +1,46 @@
+---
+// Posts to a Formspree-compatible endpoint, which emails the submission to Dean.
+// Works without JavaScript (the endpoint shows its own thank-you page); with JS it stays on the page.
+interface Props {
+  endpoint: string;
+}
+const { endpoint } = Astro.props;
+---
+<form class="contact-form" action={endpoint} method="POST">
+  <div class="field-row">
+    <label>Name <input name="name" autocomplete="name" required /></label>
+    <label>Email <input name="email" type="email" autocomplete="email" required /></label>
+  </div>
+  <label><span>Company <span class="muted">(optional)</span></span> <input name="company" autocomplete="organization" /></label>
+  <label>What are you working on? <textarea name="message" rows="5" required></textarea></label>
+  <!-- Honeypot: hidden from people, filled in by bots. Formspree drops submissions that set it. -->
+  <input class="honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <p class="cta-row"><button class="button" type="submit">Send</button></p>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  for (const form of document.querySelectorAll<HTMLFormElement>('.contact-form')) {
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const button = form.querySelector<HTMLButtonElement>('button')!;
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        status.textContent = 'Thanks, I’ll get back to you soon.';
+      } catch {
+        status.textContent = 'Something went wrong. Please try again, or message me on LinkedIn.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>
